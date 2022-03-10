@@ -33,21 +33,21 @@ LinkedList.prototype.getHead = function () {
 };
 
 LinkedList.prototype.getTail = function () {
-    var current=this.head;
-    while (current.next){
-        current=current.next
+    var current = this.head;
+    while (current.next) {
+        current = current.next
     }
     return current.value
 }
 
 LinkedList.prototype.search = function (value) {
-    var current=this.head, pos=0;
-    if (current.value===value) return pos;
-    while (current.next){
-        current=current.next;
+    var current = this.head, pos = 0;
+    if (current.value === value) return pos;
+    while (current.next) {
+        current = current.next;
         pos++;
-        if (current.value===value) return pos;
-    }   
+        if (current.value === value) return pos;
+    }
 };
 
 /*****************************************************************/
@@ -62,12 +62,18 @@ LinkedList.prototype.search = function (value) {
 // Ejemplo de numeros palindromos: 1001, 252, 2001, 2222, 9889.
 
 function isPalindrome(number) {
-    if (number<=0) return false;
-    number=number.toString()
-    var vice=number.split("").reverse().join("")
-    if(vice===number){
-        return true;
-    } else{
+    if (typeof number === 'number') {
+        if (number <= 0 || !Number.isInteger(number)) return false; 
+        number = number.toString()
+    }
+    if (number[0] === number[number.length - 1]) {
+        var newStr = number.slice(1, number.length - 1)
+        if (newStr.length > 1) {
+            return isPalindrome(newStr)
+        } else {
+            return true;
+        }
+    } else {
         return false;
     }
 }
@@ -92,7 +98,7 @@ function isPalindrome(number) {
 
 Queue.prototype.reverseStack = function () {
     var queue = new Queue();
-    while (this.isEmpty()===false) {
+    while (this.isEmpty() === false) {
         queue.enqueue(this.array.pop());
     }
     return queue;
@@ -113,10 +119,10 @@ Queue.prototype.reverseStack = function () {
 
 
 function growUp() {
-    var age=28;
-    return function moreAge(){
+    var age = 28;
+    return function moreAge() {
         age++;
-        return 'Pepe tiene ahora '+ age + ' años';
+        return 'Pepe tiene ahora ' + age + ' años';
     }
 }
 
@@ -132,7 +138,7 @@ function growUp() {
 // Si se nos presenta un arbol como el que se encuentra en el archivo BST.png
 // la funcion deberia retornar [1, 5, 14].
 
-BinarySearchTree.prototype.getLeafs = function (array=[]) {
+BinarySearchTree.prototype.getLeafs = function (array = []) {
     /*if (this.left){
         if (!this.left.left&&!this.left.right){
             array.push(this.left.value); 
@@ -147,10 +153,10 @@ BinarySearchTree.prototype.getLeafs = function (array=[]) {
             array.concat(this.right.getLeafs());
         }
     }*/
-    if (!this.left&&!this.right) array.push(this.value); 
-    if (this.left&&!this.right) this.left.getLeafs(array);
-    if (!this.left&&this.right) this.right.getLeafs(array);
-    if (this.left&&this.right){
+    if (!this.left && !this.right) array.push(this.value);
+    if (this.left && !this.right) this.left.getLeafs(array);
+    if (!this.left && this.right) this.right.getLeafs(array);
+    if (this.left && this.right) {
         this.left.getLeafs(array);
         this.right.getLeafs(array);
     }
@@ -169,7 +175,7 @@ BinarySearchTree.prototype.getLeafs = function (array=[]) {
 // HINT: usar el metodo .isEmpty() de la clase Queue ya implementada.
 
 Queue.prototype.clearAll = function () {
-    while(this.isEmpty()===false){
+    while (this.isEmpty() === false) {
         this.dequeue()
     };
 };
@@ -253,16 +259,16 @@ Queue.prototype.clearAll = function () {
 // ];
 
 function sortByDni(obj) {
-    for (let i = 0; i < obj.length; i++) { 
-        for (let j = 0; j < (obj.length - i - 1); j++) { 
-          if(obj[j].dni < obj[j+1].dni) {
-            let tmp = obj[j]; 
-            obj[j] = obj[j+1]; 
-            obj[j+1] = tmp; 
-          }
-        }        
-      }
-      return obj;
+    for (let i = 0; i < obj.length; i++) {
+        for (let j = 0; j < (obj.length - i - 1); j++) {
+            if (obj[j].dni < obj[j + 1].dni) {
+                let tmp = obj[j];
+                obj[j] = obj[j + 1];
+                obj[j + 1] = tmp;
+            }
+        }
+    }
+    return obj;
 }
 
 /*****************************************************************/
@@ -306,23 +312,23 @@ function sortByDni(obj) {
 //  14           E
 //  15           F
 
-function separar(str){
-    if (str.length>0){
-       str2.push((str.slice(0,2)));
-       str=str.slice(2);
-       return separar(str)
+function separar(str) {
+    if (str.length > 0) {
+        str2.push((str.slice(0, 2)));
+        str = str.slice(2);
+        return separar(str)
     }
     return str2.join(" ");
 }
 
 function decToHex(number, add) {
     var hexa;
-    if (number>0 && Number.isInteger(number)===true){
-        hexa=number.toString(16).toUpperCase();
-        if (add==='addHashtag'){
-            return '#'+hexa;
+    if (number > 0 && Number.isInteger(number) === true) {
+        hexa = number.toString(16).toUpperCase();
+        if (add === 'addHashtag') {
+            return '#' + hexa;
         }
-        str2=[];
+        str2 = [];
         return separar(hexa);
     }
 }
